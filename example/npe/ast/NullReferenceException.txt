@@ -1,0 +1,1 @@
+(compilationUnit (packageDeclaration package (packageName bad_inheritance) ;) (typeDeclaration (classDeclaration (normalClassDeclaration (classModifier public) class NullReferenceException (superclass extends (classType NullPointerException)) (classBody { })))) <EOF>)

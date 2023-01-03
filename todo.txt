@@ -1,0 +1,48 @@
+Submeter uma arvore sintática tokenizada ao LSH.
+
+REGEX de ouro: \(?([a-zA-Z]+) "?[\,\ a-zA-Z]+"?\)?
+Alternativa: \(?([a-zA-Z_]+) ("?[_\,\ a-zA-Z]+"?)\)?
+
+from numpy.linalg import norm
+from scipy import spatial
+from math import sqrt
+
+    def cosine(self, other):
+        A = np.array(list(self.hashvalues))
+        B = np.array(list(other.hashvalues))
+        return 1.0 - spatial.distance.cosine(A, B)
+        #return np.dot(A,B)/(norm(A)*norm(B))
+
+    def correlation(self, other):
+        A = np.array(list(self.hashvalues))
+        B = np.array(list(other.hashvalues))
+        return 1.0 - spatial.distance.correlation(A, B)
+
+    def euclidean(self, other):
+        A = np.array(list(self.hashvalues))
+        B = np.array(list(other.hashvalues))
+        return norm(A-B)
+
+    def euclidian(self, other):
+        A = np.array(list(self.hashvalues))
+        B = np.array(list(other.hashvalues))
+        return 1/(1 + norm(A-B))
+
+    def euclidian2(self, other):
+        A = np.array(list(self.hashvalues))
+        B = np.array(list(other.hashvalues))
+        return 1.0/(1 + spatial.distance.euclidean(A, B)**(0.25))
+        #return 1 - np.tanh(spatial.distance.euclidean(A, B))
+
+    def euclidian3(self, other):
+        A = np.array(list(self.hashvalues))
+        B = np.array(list(other.hashvalues))
+        return spatial.distance.sqeuclidean(A, B)
+
+    def euclidian4(self, other):
+        A = np.array(list(self.hashvalues))
+        B = np.array(list(other.hashvalues))
+        V = np.var(np.array([A,B]), axis=0, ddof=1)
+        V[np.isfinite(V)]
+        print(V)
+        return spatial.distance.seuclidean(A, B, V)
