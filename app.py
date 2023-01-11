@@ -17,7 +17,7 @@ from datetime import date
 from analysis import *
 
 def parse_samples():
-    samples_filepaths = glob.glob("example/mix/dataset/*.java")
+    samples_filepaths = sorted(glob.glob("example/new_mix/dataset/*.java"))
 
     for filepath in samples_filepaths:
         print(str(filepath))
@@ -28,7 +28,7 @@ def parse_samples():
         tree = parser.compilationUnit()
         tree_string = Trees.toStringTree(tree, None, parser)
         #print(tree_string)
-        sample_filename = re.search(r"example\/mix\/dataset\/(.+\.java)", str(filepath)).group(1)
+        sample_filename = re.search(r"example\/new_mix\/dataset\/(.+\.java)", str(filepath)).group(1)
         tree_string = re.sub(r'literal 0[xX][0-9a-fA-F]+(.\d*p[\+\-]\d*)?[Lfd]?', 'literal HEXADECIMAL', tree_string)
         tree_string = re.sub(r'literal (\d+[eE][\+\-]\d+|[\+\-]?\d+\.?\d*[Ldf]?|\.\d+)', 'literal NUMBER', tree_string)
         tree_string = re.sub(r'literal (\'[^\']?\')', 'literal CHAR', tree_string)
@@ -38,12 +38,12 @@ def parse_samples():
             file.write(tree_string)
 
 def parse_ast():
-    ast_filepaths = glob.glob("example/mix/ast/*.txt")
+    ast_filepaths = sorted(glob.glob("example/new_mix/ast/*.txt"))
     #ast_filepaths = glob.glob("astTree.txt")
 
     for filepath in ast_filepaths:
         print(str(filepath))
-        ast_name = re.search(r"example\/mix\/ast\/(.+)\.txt", str(filepath)).group(1)
+        ast_name = re.search(r"example\/new_mix\/ast\/(.+)\.txt", str(filepath)).group(1)
         #ast_name = re.search(r"(.+)\.txt", str(filepath)).group(1)
         s = set()
 

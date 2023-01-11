@@ -171,7 +171,7 @@ class MinHash(object):
     def correlation(self, other):
         A = np.array(list(self.hashvalues))
         B = np.array(list(other.hashvalues))
-        return 1.0 - np.abs(spatial.distance.correlation(A, B))
+        return np.abs(spatial.distance.correlation(A, B))
 
     def euclidean(self, other):
         A = np.array(list(self.hashvalues))
