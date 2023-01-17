@@ -6,6 +6,13 @@ from math import sqrt
 import re
 import glob
 
+'''
+K-NN adapted to work with MinHashes
+
+@Author Rodrigo Lafayette
+
+Adapted from https://machinelearningmastery.com from author Jason Brownlee.
+'''
 # Load a CSV file
 def load_csv(filename):
 	dataset = list()
@@ -125,20 +132,23 @@ def k_nearest_neighbors(train, test, num_neighbors):
 
 def main(argv):
     samples_filepaths = sorted(glob.glob("example/knn/train-data/*.csv"))
+    k_values = [1, 3, 5, 7]
+
     for filename in samples_filepaths:
-        seed(1)
         print(re.search(r"\/([^\/]+)\.csv", str(filename)).group(1))
-        dataset = load_csv(filename)
-        for i in range(len(dataset[0])-1):
-            str_column_to_float(dataset, i)
-        # convert class column to integers
-        str_column_to_int(dataset, len(dataset[0])-1)
-        # evaluate algorithm
-        n_folds = 10
-        num_neighbors = 10
-        scores = evaluate_algorithm(dataset, k_nearest_neighbors, n_folds, num_neighbors)
-        print('Scores: %s' % scores)
-        print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))
+        for k in k_values:
+            seed(1)
+            dataset = load_csv(filename)
+            for i in range(len(dataset[0])-1):
+                str_column_to_float(dataset, i)
+            # convert class column to integers
+            str_column_to_int(dataset, len(dataset[0])-1)
+            # evaluate algorithm
+            n_folds = 10
+            num_neighbors = k
+            scores = evaluate_algorithm(dataset, k_nearest_neighbors, n_folds, num_neighbors)
+            #print('Scores: %s' % scores)
+            print('Mean Accuracy (k=' + str(k) + '): %.3f%%' % (sum(scores)/float(len(scores))))
 
 if __name__ == '__main__':
     main(sys.argv)

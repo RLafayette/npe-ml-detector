@@ -166,7 +166,6 @@ class MinHash(object):
         A = np.array(list(self.hashvalues))
         B = np.array(list(other.hashvalues))
         return 1.0 - spatial.distance.cosine(A, B)
-        #return np.dot(A,B)/(norm(A)*norm(B))
 
     def correlation(self, other):
         A = np.array(list(self.hashvalues))

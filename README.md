@@ -48,3 +48,11 @@ compilationUnit
    : packageDeclaration? importDeclaration* typeDeclaration* EOF
    ;
 ```
+
+--------------------
+
+# Para executar:
+
+python app.py -> Gera as matrizes de similaridade. Ver o main, caso já as tenha gerado é possível comentar parse_samples()
+
+python knn.py -> Executa o k-nn no considerando cada matriz de similaridade.
